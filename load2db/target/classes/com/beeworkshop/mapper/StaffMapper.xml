@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beeworkshop.mapper.StaffMapper">
+	<!-- StaffMapper.listStaff() -->
+	<select id="listStaff" resultType="com.beeworkshop.model.Staff">
+		SELECT * FROM staff ORDER BY id
+	</select>
+
+	<!-- StaffMapper.insertBatch() -->
+	<insert id="insertBatch" parameterType="java.util.List">
+		INSERT INTO staff(dept, name, gender, age, status)
+		VALUES
+		<!-- 下边的 collection属性只能填list-->
+		<foreach collection="list" index="index" item="item" separator=",">
+			(#{item.dept}, #{item.name}, #{item.gender}, #{item.age}, #{item.status})
+		</foreach>
+	</insert>
+</mapper>
